@@ -23,9 +23,9 @@ func NewLogger(isProd, addSrc bool) *slog.Logger {
 	var handler slog.Handler
 
 	if isProd {
-		handler = slog.NewTextHandler(os.Stdout, opts)
-	} else {
 		handler = slog.NewJSONHandler(os.Stdout, opts)
+	} else {
+		handler = slog.NewTextHandler(os.Stdout, opts)
 	}
 
 	return slog.New(handler)
