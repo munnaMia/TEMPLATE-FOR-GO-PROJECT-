@@ -3,6 +3,7 @@ package cmd
 import (
 	"log/slog"
 
+	"github.com/munnaMia/ahlan/config"
 	"github.com/munnaMia/ahlan/utility"
 )
 
@@ -11,5 +12,6 @@ func Run() {
 	newLogger := utility.NewLogger(false, false)
 	slog.SetDefault(newLogger)
 
-	
+	// reading envs
+	cnf := config.GetConfiguration()
 }
