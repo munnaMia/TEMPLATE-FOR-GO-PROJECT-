@@ -12,3 +12,16 @@ This project will be a pure hardcore testing of my technical skills. so HR and d
 ## Technologies
 - Golang - for backend source code.
 - PostgreSQL - for database.
+
+## How to run
+1. Clone the repository.
+
+```bash
+git clone git@github.com:munnaMia/ahlan.git
+```
+
+2. Create a `.env` file in the root directory and run the command
+
+```bash
+cp .env.example .env
+```
