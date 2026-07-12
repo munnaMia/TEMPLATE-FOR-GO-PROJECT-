@@ -1,7 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"github.com/munnaMia/ahlan/cmd"
+)
 
-func main(){
-	fmt.Println("Hello Welcome to AHLAN")
+func main() {
+	// start running the program.
+	cmd.Run()
 }

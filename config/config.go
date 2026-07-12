@@ -20,6 +20,7 @@ type Service struct {
 	HTTP_Port int
 }
 
+// load all the configuration from the env file.
 func loadConfiguration() {
 	err := godotenv.Load()
 	if err != nil {
@@ -57,6 +58,7 @@ func loadConfiguration() {
 	}
 }
 
+// return the confis from the env file. if need loads them.
 func GetConfiguration() *Configuration {
 	if configurations == nil {
 		loadConfiguration()
