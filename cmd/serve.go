@@ -12,6 +12,8 @@ func Run() {
 	newLogger := utility.NewLogger(false, false)
 	slog.SetDefault(newLogger)
 
-	// reading envs
+	// fetching the env's
 	cnf := config.GetConfiguration()
+
+	
 }
