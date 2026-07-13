@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/munnaMia/ahlan/api/handler/user"
 	"github.com/munnaMia/ahlan/api/middleware"
 	"github.com/munnaMia/ahlan/config"
 )
@@ -34,10 +35,11 @@ func (svr *Server) Start() {
 		mdlw.Logger,
 	)
 
-	// temporary route for testing
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Welcome to ahlan"))
-	})
+	// handlers
+	userHandler := user.NewHandler()
+
+	// register routes
+	userHandler.RegisterRoutes(mux, mdlwMngr)
 
 	// prepare the resources.
 	addr := ":" + strconv.Itoa(svr.cnf.Service.HTTP_Port)
