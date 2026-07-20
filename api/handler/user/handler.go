@@ -19,9 +19,9 @@ func NewHandler(responder response.Responder) *Handler {
 
 // only for now
 type User struct {
-	Name     string
-	Email    string
-	Password string
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 var users = make([]User, 0) // now database.

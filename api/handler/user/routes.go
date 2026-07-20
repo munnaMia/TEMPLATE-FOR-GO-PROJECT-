@@ -44,5 +44,4 @@ func (h *Handler) RegisterRoutes(mux *http.ServeMux, mngr *middleware.Manager) {
 	mux.Handle("POST /api/account/reset-password", mngr.With(
 		http.HandlerFunc(h.resetPassword),
 	))
-	
 }
