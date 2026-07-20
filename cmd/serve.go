@@ -5,12 +5,12 @@ import (
 
 	"github.com/munnaMia/ahlan/api"
 	"github.com/munnaMia/ahlan/config"
-	"github.com/munnaMia/ahlan/utility"
+	"github.com/munnaMia/ahlan/util/logger"
 )
 
 func Run() {
 	// setting up new logger for app.
-	newLogger := utility.NewLogger(false, false)
+	newLogger := logger.NewLogger(false, false)
 	slog.SetDefault(newLogger)
 
 	// fetching the env's.

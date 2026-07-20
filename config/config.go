@@ -28,8 +28,6 @@ func loadConfiguration() {
 		os.Exit(1)
 	}
 
-	// load the envs.
-
 	svrName := os.Getenv("SERVICE_NAME")
 	if svrName == "" {
 		slog.Error("Service name not found")
@@ -48,13 +46,15 @@ func loadConfiguration() {
 		os.Exit(1)
 	}
 
+	service := Service{
+		Name:      svrName,
+		Version:   version,
+		HTTP_Port: int(httpPort),
+	}
+
 	// keeping the configurations
 	configurations = &Configuration{
-		Service: Service{
-			Name:      svrName,
-			Version:   version,
-			HTTP_Port: int(httpPort),
-		},
+		Service: service,
 	}
 }
 
