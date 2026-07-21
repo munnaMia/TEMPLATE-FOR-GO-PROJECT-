@@ -9,17 +9,21 @@ import (
 	"github.com/munnaMia/ahlan/api/handler/user"
 	"github.com/munnaMia/ahlan/api/middleware"
 	"github.com/munnaMia/ahlan/config"
-	"github.com/munnaMia/ahlan/util/response"
 )
 
 type Server struct {
-	cnf *config.Configuration
+	cnf         *config.Configuration
+	userHandler *user.Handler
 }
 
 // return a new api server.
-func NewServer(cnf *config.Configuration) *Server {
+func NewServer(
+	cnf *config.Configuration,
+	userHandler *user.Handler,
+) *Server {
 	return &Server{
-		cnf: cnf,
+		cnf:         cnf,
+		userHandler: userHandler,
 	}
 }
 
@@ -27,9 +31,6 @@ func NewServer(cnf *config.Configuration) *Server {
 func (svr *Server) Start() {
 	// initializing new serve mux
 	mux := http.NewServeMux()
-
-	// initializing an http responder for http response.
-	httpResponder := response.NewHttpResponse()
 
 	// initializing middleware and the middleware manager.
 	mdlw := middleware.NewMiddleware()
@@ -40,11 +41,8 @@ func (svr *Server) Start() {
 		mdlw.Logger,
 	)
 
-	// handlers
-	userHandler := user.NewHandler(httpResponder)
-
 	// register routes
-	userHandler.RegisterRoutes(mux, mdlwMngr)
+	svr.userHandler.RegisterRoutes(mux, mdlwMngr)
 
 	// prepare the resources.
 	addr := ":" + strconv.Itoa(svr.cnf.Service.HTTP_Port)

@@ -4,8 +4,10 @@ import (
 	"log/slog"
 
 	"github.com/munnaMia/ahlan/api"
+	"github.com/munnaMia/ahlan/api/handler/user"
 	"github.com/munnaMia/ahlan/config"
 	"github.com/munnaMia/ahlan/util/logger"
+	"github.com/munnaMia/ahlan/util/response"
 )
 
 func Run() {
@@ -16,8 +18,17 @@ func Run() {
 	// fetching the env's.
 	cnf := config.GetConfiguration()
 
+	// initializing an http responder for http response.
+	httpResponder := response.NewHttpResponse()
+
+	// initializing handlers
+	userHandler := user.NewHandler(httpResponder)
+
 	// creating a api server.
-	apiServer := api.NewServer(cnf)
+	apiServer := api.NewServer(
+		cnf,
+		userHandler,
+	)
 
 	// start running the api server.
 	apiServer.Start()
