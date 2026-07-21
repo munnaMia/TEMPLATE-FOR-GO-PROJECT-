@@ -5,9 +5,9 @@ import (
 
 	"github.com/munnaMia/ahlan/api"
 	"github.com/munnaMia/ahlan/api/handler/user"
-	"github.com/munnaMia/ahlan/config"
-	"github.com/munnaMia/ahlan/util/logger"
-	"github.com/munnaMia/ahlan/util/response"
+	"github.com/munnaMia/ahlan/internal/config"
+	"github.com/munnaMia/ahlan/internal/util/logger"
+	"github.com/munnaMia/ahlan/internal/util/response"
 )
 
 func Run() {

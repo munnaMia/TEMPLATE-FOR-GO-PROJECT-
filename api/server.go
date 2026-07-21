@@ -8,7 +8,7 @@ import (
 
 	"github.com/munnaMia/ahlan/api/handler/user"
 	"github.com/munnaMia/ahlan/api/middleware"
-	"github.com/munnaMia/ahlan/config"
+	"github.com/munnaMia/ahlan/internal/config"
 )
 
 type Server struct {

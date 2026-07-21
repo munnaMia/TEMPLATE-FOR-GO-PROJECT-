@@ -1,7 +1,7 @@
 package user
 
 import (
-	"github.com/munnaMia/ahlan/util/response"
+	"github.com/munnaMia/ahlan/internal/util/response"
 )
 
 type Handler struct {
