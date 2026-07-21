@@ -11,13 +11,20 @@ import (
 var configurations *Configuration
 
 type Configuration struct {
-	Service Service
+	Service  Service
+	Database DB
 }
 
+// service configuration
 type Service struct {
 	Name      string
 	Version   string
 	HTTP_Port int
+	SecretKey string
+}
+
+// database configuration
+type DB struct {
 }
 
 // load all the configuration from the env file.
@@ -46,10 +53,17 @@ func loadConfiguration() {
 		os.Exit(1)
 	}
 
+	secretKey := os.Getenv("SECRET_KEY")
+	if version == "" {
+		slog.Error("secret key not found")
+		os.Exit(1)
+	}
+
 	service := Service{
 		Name:      svrName,
 		Version:   version,
 		HTTP_Port: int(httpPort),
+		SecretKey: secretKey,
 	}
 
 	// keeping the configurations
