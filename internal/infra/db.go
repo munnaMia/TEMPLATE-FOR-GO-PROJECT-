@@ -40,5 +40,8 @@ func NewConnection(ctx context.Context, cnf *config.Configuration) (*sql.DB, err
 		return nil, fmt.Errorf("failed to ping the database, %w", err)
 	}
 
+	pool.SetMaxIdleConns(6) // max idle connection
+	pool.SetMaxOpenConns(6) // max open connection default is unlimited
+
 	return pool, nil
 }
