@@ -25,6 +25,12 @@ type Service struct {
 
 // database configuration
 type DB struct {
+	DB_Host     string
+	DB_Port     string
+	DB_User     string
+	DB_Password string
+	DB_Name     string
+	SSL_Mode    string
 }
 
 // load all the configuration from the env file.
@@ -66,9 +72,56 @@ func loadConfiguration() {
 		SecretKey: secretKey,
 	}
 
+	// fetching db configurations
+	dbHost := os.Getenv("DB_HOST")
+	if svrName == "" {
+		slog.Error("db host string not found")
+		os.Exit(1)
+	}
+
+	dbPort := os.Getenv("DB_PORT")
+	if svrName == "" {
+		slog.Error("db port  not found")
+		os.Exit(1)
+	}
+
+	dbUser := os.Getenv("DB_USER")
+	if svrName == "" {
+		slog.Error("db user not found")
+		os.Exit(1)
+	}
+
+	dbPassword := os.Getenv("DB_PASSWORD")
+	if svrName == "" {
+		slog.Error("db password not found")
+		os.Exit(1)
+	}
+
+	dbName := os.Getenv("DB_NAME")
+	if svrName == "" {
+		slog.Error("db name not found")
+		os.Exit(1)
+	}
+
+	sslMode := os.Getenv("SSL_MODE")
+	if svrName == "" {
+		slog.Error("sslmode not found")
+		os.Exit(1)
+	}
+
+	database := DB{
+		DB_Host:     dbHost,
+		DB_Port:     dbPort,
+		DB_User:     dbUser,
+		DB_Password: dbPassword,
+		DB_Name:     dbName,
+		SSL_Mode:    sslMode,
+	}
+
 	// keeping the configurations
 	configurations = &Configuration{
-		Service: service,
+		Service:  service,
+		Database: database,
 	}
 }
 
