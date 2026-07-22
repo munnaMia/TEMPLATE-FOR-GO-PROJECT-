@@ -1,8 +1,6 @@
 package main
 
-import (
-	"github.com/munnaMia/ahlan/cmd"
-)
+import "github.com/munnaMia/ahlan/cmd"
 
 func main() {
 	// start running the program.
