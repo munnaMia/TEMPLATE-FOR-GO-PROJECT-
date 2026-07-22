@@ -24,4 +24,3 @@ type User struct {
 	Password string `json:"password"`
 }
 
-var users = make([]User, 0) // now database.
