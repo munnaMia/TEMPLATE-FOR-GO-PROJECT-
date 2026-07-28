@@ -4,12 +4,12 @@ import (
 	"context"
 	"log/slog"
 
-	"github.com/munnaMia/ahlan/api"
-	"github.com/munnaMia/ahlan/api/handler/user"
 	"github.com/munnaMia/ahlan/internal/config"
 	"github.com/munnaMia/ahlan/internal/infra"
 	"github.com/munnaMia/ahlan/internal/util/logger"
 	"github.com/munnaMia/ahlan/internal/util/response"
+	rest "github.com/munnaMia/ahlan/rest"
+	"github.com/munnaMia/ahlan/rest/handler/user"
 )
 
 func Run() {
@@ -25,7 +25,8 @@ func Run() {
 	// get a db connection
 	pool, err := infra.NewConnection(ctx, cnf)
 	if err != nil {
-		// handle err carefully
+		slog.Error("Error while initializing db connection", "err", err)
+		return
 	}
 	defer pool.Close()
 
@@ -35,12 +36,12 @@ func Run() {
 	// initializing handlers
 	userHandler := user.NewHandler(httpResponder)
 
-	// creating a api server.
-	apiServer := api.NewServer(
+	// creating a rest server.
+	restServer := rest.NewServer(
 		cnf,
 		userHandler,
 	)
 
-	// start running the api server.
-	apiServer.Start()
+	// start running the rest server.
+	restServer.Start()
 }

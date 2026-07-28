@@ -6,9 +6,9 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/munnaMia/ahlan/api/handler/user"
-	"github.com/munnaMia/ahlan/api/middleware"
 	"github.com/munnaMia/ahlan/internal/config"
+	"github.com/munnaMia/ahlan/rest/handler/user"
+	"github.com/munnaMia/ahlan/rest/middleware"
 )
 
 type Server struct {

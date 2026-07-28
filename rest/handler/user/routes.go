@@ -3,7 +3,7 @@ package user
 import (
 	"net/http"
 
-	"github.com/munnaMia/ahlan/api/middleware"
+	"github.com/munnaMia/ahlan/rest/middleware"
 )
 
 // register user auth and accounts related routes and handlers
