@@ -5,7 +5,9 @@ import (
 	"log/slog"
 
 	"github.com/munnaMia/ahlan/internal/config"
+	"github.com/munnaMia/ahlan/internal/infra/auth"
 	"github.com/munnaMia/ahlan/internal/infra/postgres"
+	"github.com/munnaMia/ahlan/internal/usecase"
 	"github.com/munnaMia/ahlan/internal/util/logger"
 	"github.com/munnaMia/ahlan/internal/util/response"
 	rest "github.com/munnaMia/ahlan/rest"
@@ -30,18 +32,27 @@ func Run() {
 	}
 	defer pool.Close()
 
+	// initializing services
+	jwtService := auth.NewJWTService(cnf.Service.SecretKey)
+
 	// initializing an http responder for http response.
 	httpResponder := response.NewHttpResponse()
 
+	// initializing the repositoris
+	userRepo := postgres.NewUserRepository(pool)
+
+	//initializing useCases or services
+	userUsecase := usecase.NewUserUsecase(userRepo, jwtService)
+
 	// initializing handlers
-	userHandler := user.NewHandler(httpResponder)
+	userHandler := user.NewHandler(userUsecase, httpResponder)
 
 	// creating a rest server.
-	restServer := rest.NewServer(
+	server := rest.NewServer(
 		cnf,
 		userHandler,
 	)
 
 	// start running the rest server.
-	restServer.Start()
+	server.Start()
 }
