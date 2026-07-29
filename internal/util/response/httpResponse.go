@@ -9,7 +9,7 @@ import (
 type HTTPResponse struct{}
 
 // return a new http response struct instance.
-func NewHttpResponse() *HTTPResponse {
+func NewHttpResponse() Responder {
 	return &HTTPResponse{}
 }
 
