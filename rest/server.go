@@ -33,7 +33,7 @@ func (svr *Server) Start() {
 	mux := http.NewServeMux()
 
 	// initializing middleware and the middleware manager.
-	mdlw := middleware.NewMiddleware()
+	mdlw := middleware.NewMiddleware(svr.cnf)
 	mdlwMngr := middleware.NewManager()
 
 	// append global middlewares
