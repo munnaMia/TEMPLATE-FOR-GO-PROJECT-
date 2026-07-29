@@ -5,7 +5,7 @@ import (
 	"log/slog"
 
 	"github.com/munnaMia/ahlan/internal/config"
-	"github.com/munnaMia/ahlan/internal/infra"
+	"github.com/munnaMia/ahlan/internal/infra/postgres"
 	"github.com/munnaMia/ahlan/internal/util/logger"
 	"github.com/munnaMia/ahlan/internal/util/response"
 	rest "github.com/munnaMia/ahlan/rest"
@@ -23,7 +23,7 @@ func Run() {
 	cnf := config.GetConfiguration()
 
 	// get a db connection
-	pool, err := infra.NewConnection(ctx, cnf)
+	pool, err := postgres.NewConnection(ctx, cnf)
 	if err != nil {
 		slog.Error("Error while initializing db connection", "err", err)
 		return

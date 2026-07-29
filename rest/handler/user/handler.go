@@ -1,7 +1,6 @@
 package user
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/munnaMia/ahlan/internal/util/response"
@@ -18,15 +17,6 @@ func NewHandler(responder response.Responder) *Handler {
 	}
 }
 
-// when u start work on the route move then each of them on there separate file.
-
-// only for now
-type User struct {
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
-}
-
 // Renew an expired access token using a refresh token.
 func (h *Handler) refreshToken(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Now let's refreshToken"))
@@ -34,16 +24,7 @@ func (h *Handler) refreshToken(w http.ResponseWriter, r *http.Request) {
 
 // Register/Create a brand new user account.
 func (h *Handler) registerUser(w http.ResponseWriter, r *http.Request) {
-	var user User
-	users := make([]User, 0) // temp
 
-	err := json.NewDecoder(r.Body).Decode(&user)
-	if err != nil {
-		h.responder.SendError(w, http.StatusBadRequest, "INVALID REQUEST BODY", "send a proper valid request data body", nil)
-		return
-	}
-
-	h.responder.Send(w, http.StatusOK, users, nil)
 }
 
 // Authenticate credentials and return a token (JWT, cookie, etc.).
