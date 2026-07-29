@@ -6,9 +6,9 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/munnaMia/ahlan/api/handler/user"
-	"github.com/munnaMia/ahlan/api/middleware"
 	"github.com/munnaMia/ahlan/internal/config"
+	"github.com/munnaMia/ahlan/rest/handler/user"
+	"github.com/munnaMia/ahlan/rest/middleware"
 )
 
 type Server struct {
@@ -33,7 +33,7 @@ func (svr *Server) Start() {
 	mux := http.NewServeMux()
 
 	// initializing middleware and the middleware manager.
-	mdlw := middleware.NewMiddleware()
+	mdlw := middleware.NewMiddleware(svr.cnf)
 	mdlwMngr := middleware.NewManager()
 
 	// append global middlewares

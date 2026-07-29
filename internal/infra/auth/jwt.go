@@ -1,4 +1,4 @@
-package jwt
+package auth
 
 import (
 	"crypto/hmac"
@@ -7,6 +7,16 @@ import (
 	"encoding/json"
 	"time"
 )
+
+type JWTService struct {
+	secretKey string
+}
+
+func NewJWTService(secretKey string) *JWTService {
+	return &JWTService{
+		secretKey: secretKey,
+	}
+}
 
 type Header struct {
 	ALG string `json:"alg"`
@@ -22,14 +32,14 @@ type Payload struct {
 }
 
 // Generate a JWT token.
-func GenerateJWT(secretKey string, payload Payload) (string, error) {
+func (jwtSvr *JWTService) GenerateToken(payload Payload) (string, error) {
 	header := Header{
 		ALG: "HS256",
 		TYP: "JWT",
 	}
 
 	now := time.Now().Unix()
-	
+
 	if payload.IAT == 0 {
 		payload.IAT = now
 	}
@@ -53,7 +63,7 @@ func GenerateJWT(secretKey string, payload Payload) (string, error) {
 
 	massage := headerB64 + "." + paylaodB64
 
-	secretKeyBytes := []byte(secretKey)
+	secretKeyBytes := []byte(jwtSvr.secretKey)
 	massageBytes := []byte(massage)
 
 	hash := hmac.New(sha256.New, secretKeyBytes)
